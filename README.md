@@ -1,4 +1,4 @@
-# VB.NET-Security-Module
+# VB.NET Security Module - Security Simplified!
 Welcome to the GitHub page for my Security Module for VB.NET. The intention of this module is to provide functions that can be used for the security of VB.NET programs.
 
 ## Features
