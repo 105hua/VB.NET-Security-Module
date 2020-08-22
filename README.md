@@ -4,7 +4,7 @@ Welcome to the GitHub page for my Security Module for VB.NET. The intention of t
 ## Features
 
 - MD5 Hashing - Done & Documented
-- SHA-1 Hashing - Done
+- SHA-1 Hashing - Done & Documented
 - SHA-2 Hashing (256, 384, 512) - Done
 - RSA Encryption - Done
 - Triple DES Encryption - Planned
