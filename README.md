@@ -1,5 +1,5 @@
 # VB.NET Security Module - Security Simplified!
-Welcome to the GitHub page for my Security Module for VB.NET. The intention of this module is to provide functions that can be used for the security of VB.NET programs.
+Welcome to the GitHub page for my Security Module for VB.NET. The intention of this module is to provide functions that can be used for the security of VB.NET programs. These functions are simple and execute very quickly, so there will be little to no impact on the performance of your program!
 
 ## Features
 
