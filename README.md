@@ -3,14 +3,14 @@ Welcome to the GitHub page for my Security Module for VB.NET. The intention of t
 
 ## Features
 
-- MD5 Hashing - DONE
-- SHA-1 Hashing - DONE
-- SHA-2 Hashing (256, 384, 512) - DONE
-- RSA Encryption - DONE
-- Triple DES Encryption - PLANNED
-- AES Encryption (128, 256, 512) - PLANNED
-- Blowfish Encryption - PLANNED
-- Serpent - PLANNED
+- MD5 Hashing - Done & Documented
+- SHA-1 Hashing - Done
+- SHA-2 Hashing (256, 384, 512) - Done
+- RSA Encryption - Done
+- Triple DES Encryption - Planned
+- AES Encryption (128, 256, 512) - Planned
+- Blowfish Encryption - Planned
+- Serpent - Planned
 
 
 
