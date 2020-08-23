@@ -6,7 +6,6 @@ Welcome to the GitHub page for my Security Module for VB.NET. The intention of t
 - MD5 Hashing - Done & Documented
 - SHA-1 Hashing - Done & Documented
 - SHA-2 Hashing (256, 384, 512) - Done & Documented
-- RSA Encryption - Done
 - Triple DES Encryption - Planned
 - AES Encryption (128, 256, 512) - Planned
 - Blowfish Encryption - Planned
@@ -15,3 +14,5 @@ Welcome to the GitHub page for my Security Module for VB.NET. The intention of t
 
 
 Other features may be added as I develop this Module further.
+
+NOTE: As of 23rd August 2020, I will no longer include RSA Encryption in this module until the function has been improved.
