@@ -9,7 +9,7 @@ Welcome to the GitHub page for my Security Module for VB.NET. The intention of t
 - Triple DES Encryption - Planned
 - AES Encryption (128, 256, 512) - Planned
 - Blowfish Encryption - Planned
-- Serpent - Planned
+- Serpent Encryption - Planned
 
 
 
