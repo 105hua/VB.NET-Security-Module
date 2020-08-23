@@ -57,15 +57,4 @@ Module securityModule
         End Using
     End Function
 
-    Public Function RSAEncrypt(ByVal stringtoEncrypt As String)
-        Dim encrypt As New RSACryptoServiceProvider
-        Dim byte_encoder As New UTF8Encoding
-        Dim stringtoencryptBytes As Byte() = encrypt.Encrypt(byte_encoder.GetBytes(stringtoEncrypt), True)
-        Dim stringBuilder As New StringBuilder
-        For i As Integer = 0 To stringtoencryptBytes.Length - 1
-            stringBuilder.Append(stringtoencryptBytes(i).ToString("X2"))
-        Next
-        Return stringBuilder.ToString()
-    End Function
-
 End Module
