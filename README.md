@@ -7,6 +7,7 @@ Welcome to the GitHub page for my Security Module for VB.NET. The intention of t
 - SHA-1 Hashing - Done & Documented
 - SHA-2 Hashing (256, 384, 512) - Done & Documented
 - Triple DES Encryption - Done
+- DES Encryption - Planned
 - AES Encryption (128, 256, 512) - Planned
 - Blowfish Encryption - Planned
 - Serpent Encryption - Planned
