@@ -110,4 +110,55 @@ Module securityModule
 
     End Function
 
+    Public Function DES(ByVal fileToEncrypt As String, ByVal choice As String)
+        If choice = "encrypt" Then
+
+            Dim fileName As String = Path.GetFileName(fileToEncrypt) ' Define the file name
+            Dim outputFileName = fileName & ".des" ' Add the .des extension to the file name, indicating that the file is encrypted with DES
+            Dim encryptor As New DESCryptoServiceProvider ' Define a new DESCryptoServiceProvider
+            encryptor.Key = ASCIIEncoding.ASCII.GetBytes("M3k5jOa1") ' Define the encryption key. MUST be 8 characters long.
+            encryptor.IV = ASCIIEncoding.ASCII.GetBytes("jbeQ7FLM") ' Define the Initialization Vector. MUST be 8 characters long.
+            Dim cryptotransform As ICryptoTransform = encryptor.CreateEncryptor(encryptor.Key, encryptor.IV) ' Define a new ICryptoTransform and create a new encryptor with the Key and Initialization Vector
+            Dim sourceFile As FileStream = New FileStream(fileToEncrypt, FileMode.Open, FileAccess.Read) ' Define the file to encrypt.
+            Dim outputFile As FileStream = New FileStream(outputFileName, FileMode.Create, FileAccess.Write) ' Define the file to feed the ciphered data to.
+            Dim encrprocess As CryptoStream = New CryptoStream(outputFile, cryptotransform, CryptoStreamMode.Write) ' Define the crytostream that will start the process of encryption.
+            Dim inputArray(sourceFile.Length - 1) As Byte ' Define the source files data as a Byte variable
+            sourceFile.Read(inputArray, 0, inputArray.Length) ' Read all of the data from the source file
+            encrprocess.Write(inputArray, 0, inputArray.Length) ' Write the ciphered data to the cipher file.
+            encrprocess.Close()
+            sourceFile.Close() ' Close all file streams
+            outputFile.Close()
+            My.Computer.FileSystem.DeleteFile(fileToEncrypt) ' Delete the plain file.
+            Dim returnString As String = "File Encrypted!"
+            Return returnString ' Return "File Encrypted" to whatever called the function.
+
+        ElseIf choice = "decrypt" Then
+
+            Dim fileName As String = Path.GetFileName(fileToEncrypt) ' Define the file to decrypt
+            Dim outputFileName As String = Replace(fileName, ".des", "") ' Remove the .des file extension
+            Dim decryptor As New DESCryptoServiceProvider ' Define a new DESCryptoServiceProvider
+            decryptor.Key = ASCIIEncoding.ASCII.GetBytes("M3k5jOa1") ' Define the decryption key
+            decryptor.IV = ASCIIEncoding.ASCII.GetBytes("jbeQ7FLM") ' Define the decryption initialization vector
+            Dim cryptotransform As ICryptoTransform = decryptor.CreateDecryptor(decryptor.Key, decryptor.IV) ' Define a new ICryptoTransform variable and create a decryptor with the key and initialization vector.
+            Dim sourceFile As FileStream = New FileStream(fileToEncrypt, FileMode.Open, FileAccess.Read) ' Define the file to decrypt
+            Dim outputFile As FileStream = New FileStream(outputFileName, FileMode.Create, FileAccess.Write) ' Define the plain file to feed the plain data into
+            Dim encrprocess As CryptoStream = New CryptoStream(outputFile, cryptotransform, CryptoStreamMode.Write) ' Define the cryptostream that will start the process of decryption
+            Dim inputArray(sourceFile.Length - 1) As Byte ' Define the source files data as a Byte variable
+            sourceFile.Read(inputArray, 0, inputArray.Length) ' Read the data from the source file
+            encrprocess.Write(inputArray, 0, inputArray.Length) ' Write the plain data to the output file
+            encrprocess.Close()
+            sourceFile.Close() ' Close all file streams
+            outputFile.Close()
+            My.Computer.FileSystem.DeleteFile(fileToEncrypt) ' Delete the encrypted file
+            Dim returnString As String = "File Decrypted!"
+            Return returnString ' Return "File Decrypted to whatever called the function
+
+        Else
+
+            Dim returnString As String = "Invalid Options."
+            Return returnString ' Return "Invalid Options" to whatever called the function
+
+        End If
+    End Function
+
 End Module
