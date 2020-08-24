@@ -1,60 +1,113 @@
-﻿Imports System.Security.Cryptography
+Imports System.Security.Cryptography
 Imports System.Text
+Imports System.IO
 Module securityModule
 
     Public Function MD5Hash(ByVal stringToHash As String)
         Using hash As MD5 = MD5.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the MD5 Hash as Bytes.
-            Dim stringBuilder As New StringBuilder ' Define a new string builder to convert the MD5 Hash into a string.
+            Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the MD5 Hash into a string.
             For i As Integer = 0 To stringtohashBytes.Length - 1 ' In a for loop, we append each character of the MD5 Hash into the string builder
-                stringBuilder.Append(stringtohashBytes(i).ToString("X2"))
+                stringBuilder.Append(stringtohashBytes(i).ToString("X2")) ' This will append each character of the Byte() variable that holds the hash into the String Builder
             Next
-            Return stringBuilder.ToString() ' This function will return the stringbuilder as a string.
+            Return stringBuilder.ToString() ' This function will return the String Builder as a string.
         End Using
     End Function
 
     Public Function SHA1Hash(ByVal stringToHash As String)
         Using hash As SHA1 = SHA1.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-1 Hash as Bytes.
-            Dim stringBuilder As New StringBuilder ' Define a new string builder to convert the SHA-1 Hash into a string.
-            For i As Integer = 0 To stringtohashBytes.Length - 1 ' In a for loop, we append each character of the SHA-1 Hash into the string builder
-                stringBuilder.Append(stringtohashBytes(i).ToString("X2"))
+            Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-1 Hash into a string.
+            For i As Integer = 0 To stringtohashBytes.Length - 1 ' In a for loop, we append each character of the SHA-1 Hash into the String Builder
+                stringBuilder.Append(stringtohashBytes(i).ToString("X2")) ' This will append each character of the Byte() variable that holds the hash into the String Builder
             Next
-            Return stringBuilder.ToString() ' This function will return the stringbuilder as a string.
+            Return stringBuilder.ToString() ' This function will return the String Builder as a string.
         End Using
     End Function
 
     Public Function SHA256Hash(ByVal stringToHash As String)
         Using hash As SHA256 = SHA256.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-256 Hash as Bytes.
-            Dim stringBuilder As New StringBuilder ' Define a new string builder to convert the SHA-256 Hash into a string.
-            For i As Integer = 0 To stringtohashBytes.Length - 1 ' In a for loop, we append each character of the SHA-256 Hash into the string builder
-                stringBuilder.Append(stringtohashBytes(i).ToString("X2"))
+            Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-256 Hash into a string.
+            For i As Integer = 0 To stringtohashBytes.Length - 1 ' In a for loop, we append each character of the SHA-256 Hash into the String Builder
+                stringBuilder.Append(stringtohashBytes(i).ToString("X2")) ' This will append each character of the Byte() variable that holds the hash into the String Builder
             Next
-            Return stringBuilder.ToString() ' This function will return the stringbuilder as a string.
+            Return stringBuilder.ToString() ' This function will return the String Builder as a string.
         End Using
     End Function
 
     Public Function SHA384Hash(ByVal stringToHash As String)
         Using hash As SHA384 = SHA384.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-384 Hash as Bytes.
-            Dim stringBuilder As New StringBuilder
-            For i As Integer = 0 To stringtohashBytes.Length - 1
-                stringBuilder.Append(stringtohashBytes(i).ToString("X2"))
+            Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-384 Hash into a string.
+            For i As Integer = 0 To stringtohashBytes.Length - 1 ' In a for loop, we append each character of the SHA-256 Hash into the String Builder
+                stringBuilder.Append(stringtohashBytes(i).ToString("X2")) ' This will append each character of the Byte() variable that holds the hash into the String Builder
             Next
-            Return stringBuilder.ToString()
+            Return stringBuilder.ToString() ' This function will return the String Builder as a string.
         End Using
     End Function
 
     Public Function SHA512Hash(ByVal stringToHash As String)
-        Using hash As SHA512 = SHA512.Create()
-            Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash))
-            Dim stringBuilder As New StringBuilder
-            For i As Integer = 0 To stringtohashBytes.Length - 1
-                stringBuilder.Append(stringtohashBytes(i).ToString("X2"))
+        Using hash As SHA512 = SHA512.Create() ' Create the hashing object for use in computing the hash.
+            Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-512 Hash as Bytes.
+            Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-512 Hash into a string.
+            For i As Integer = 0 To stringtohashBytes.Length - 1 ' In a for loop, we append each character of the SHA-512 Hash into the String Builder
+                stringBuilder.Append(stringtohashBytes(i).ToString("X2")) ' This will append each character of the Byte() variable that holds the hash into the String Builder
             Next
-            Return stringBuilder.ToString()
+            Return stringBuilder.ToString() ' This function will return the String Builder as a string.
         End Using
+    End Function
+
+    Public Function TripleDES(ByVal fileToEncrypt As String, ByVal choice As String)
+        If choice = "encrypt" Then ' If the user chooses to encrypt...
+
+            Dim fileName As String = Path.GetFileName(fileToEncrypt) ' We first get the filename from the directory. I don't believe this line is necessary, however I've done it anyway.
+            Dim outputFileName As String = fileName & ".3des" ' We then add the .3des extension to the files name. This will help users identify that the file is encrypted with Triple DES.
+            Dim encryptor As New TripleDESCryptoServiceProvider ' Unlike hashing, we need a CryptoServiceProvider to help us encrypt the file given. CryptoServiceProvider can also be used for hashes, however it is not the best way.
+            encryptor.Key = ASCIIEncoding.ASCII.GetBytes("LCxS9JAVvVkbRhmLvga5nQQB") ' This defines the key that will be used to encrypt the file. This string MUST be 24 characters long, otherwise the program will produce an error.
+            encryptor.IV = ASCIIEncoding.ASCII.GetBytes("jbeQ7FLM") ' This defines the Initialization Vector that will be used to encrypt the file. This string MUST be 8 characters long, otherwise the program will produce an error.
+            Dim cryptotransform As ICryptoTransform = encryptor.CreateEncryptor(encryptor.Key, encryptor.IV) ' This line of code does exactly what you think it would do. It will create the encryptor that will be used to transform the plain file into a cipher file.
+            Dim sourceFile As FileStream = New FileStream(fileToEncrypt, FileMode.Open, FileAccess.Read) ' Of course, we need the file that we are going to encrypt. We will define this file as a FileStream.
+            Dim outputFile As FileStream = New FileStream(outputFileName, FileMode.Create, FileAccess.Write) ' We also need to create the cipher file, which we will also define as a FileStream.
+            Dim encrprocess As CryptoStream = New CryptoStream(outputFile, cryptotransform, CryptoStreamMode.Write) ' Finally, this CryptoStream will tell the program where to write the file and with what CryptoTransform. We are writing to the cipher file, so pur Stream Mode will be write.
+            Dim inputArray(sourceFile.Length - 1) As Byte ' This defines a Byte() array that will help to read all of the data from our source file and then write it to the cipher file.
+            sourceFile.Read(inputArray, 0, inputArray.Length) ' We then read the file to get all of the data to encrypt it in the next line.
+            encrprocess.Write(inputArray, 0, inputArray.Length) ' We then write all of the encrypted data to the cipher file.
+            encrprocess.Close()
+            sourceFile.Close()  ' These three lines are here to make sure that all the streams are closed, so they cannot produce errors later on.
+            outputFile.Close()
+            Dim returnString As String = "File Encrypted!"
+            My.Computer.FileSystem.DeleteFile(fileToEncrypt) ' This will delete the file we started with for security reasons.
+            Return returnString ' We then return "File Encrypted" back to the program that called it.
+
+        ElseIf choice = "decrypt" Then ' If the user chooses to decrypt...
+
+            Dim fileName As String = Path.GetFileName(fileToEncrypt) ' We first get the filename from the directory. I don't believe this line is necessary, however I've done it anyway.
+            Dim outputFileName As String = Replace(fileName, ".3des", "") ' We will also remove the .3des extension to indicate that the file is not encryted.
+            Dim decryptor As New TripleDESCryptoServiceProvider ' The CryptoServiceProvider is also used for decryption, so we will define it in a similar way we did with the encryption process.
+            decryptor.Key = ASCIIEncoding.ASCII.GetBytes("LCxS9JAVvVkbRhmLvga5nQQB") ' For testing purposes, we have given the decryptor the same Key and Initialization Vector as we did when encrypting our file.
+            decryptor.IV = ASCIIEncoding.ASCII.GetBytes("jbeQ7FLM")                  ' Remember: The Key MUST be 24 characters long and the Initialization Vector MUST be 8 characters long, otherwise the program will produce an error.
+            Dim cryptotransform As ICryptoTransform = decryptor.CreateDecryptor(decryptor.Key, decryptor.IV) ' Like in the encryption process, we create the decryptor via a CryptoTransform variable. We will be using this to transform the cipher file into a plain file later in the function.
+            Dim sourceFile As FileStream = New FileStream(fileToEncrypt, FileMode.Open, FileAccess.Read) ' We will also need to define the cipher file as our source file to decrypt.
+            Dim outputFile As FileStream = New FileStream(outputFileName, FileMode.Create, FileAccess.Write) ' We will also need to create the plain file as the file to feed the transformed data into.
+            Dim encrprocess As CryptoStream = New CryptoStream(outputFile, cryptotransform, CryptoStreamMode.Write) ' The encryption process is handled via the CryptoStream, only with slightly different variables than the encryption process.
+            Dim inputArray(sourceFile.Length - 1) As Byte ' This Byte variable is defined so that the function knows how much data is in the source file.
+            sourceFile.Read(inputArray, 0, inputArray.Length) ' We then read the cipher file so that the program has the cipher data to decrypt.
+            encrprocess.Write(inputArray, 0, inputArray.Length) ' After that, we write all of the transformed data into our plain file.
+            encrprocess.Close()
+            sourceFile.Close() ' These three lines are here to make sure that all of the streams are closed, so that they cannot produce errors later on.
+            outputFile.Close()
+            My.Computer.FileSystem.DeleteFile(fileToEncrypt) ' Finally, we delete the cipher file for security reasons.
+            Dim returnString As String = "File Decrypted!"
+            Return returnString ' We then return "File Decrypted" back to the program that called it.
+
+        Else ' If the user puts neither "encrypt" nor "decrypt"
+
+            Dim returnString As String = "Invalid Options."
+            Return returnString ' We return "Invalid Options" back to the program that called it.
+
+        End If
+
     End Function
 
 End Module
