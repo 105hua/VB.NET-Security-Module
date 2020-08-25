@@ -161,4 +161,55 @@ Module securityModule
         End If
     End Function
 
+    Public Function AES(ByVal fileToEncrypt As String, ByVal choice As String)
+        If choice = "encrypt" Then
+
+            Dim fileName As String = Path.GetFileName(fileToEncrypt) ' Get the file name
+            Dim outputFileName As String = fileName & ".aes" ' Add the .aes file extension to indicate that the file is encrypted with AES.
+            Dim encryptor As New AesCryptoServiceProvider ' Define the encryptor as an AesCryptoServiceProvider
+            encryptor.Key = ASCIIEncoding.ASCII.GetBytes("dRgUkXp2s5v8y/B?E(G+KbPeShVmYq3t") ' Define the key and convert it to a Byte() variable
+            encryptor.IV = ASCIIEncoding.ASCII.GetBytes("D(G+KbPeSgVkYp3s") ' Define the initialization vector and convert it to a Byte() variable
+            Dim cryptotransform As ICryptoTransform = encryptor.CreateEncryptor(encryptor.Key, encryptor.IV) ' Create the encryptor with an ICryptoTransform variable
+            Dim sourceFile As FileStream = New FileStream(fileToEncrypt, FileMode.Open, FileAccess.Read) ' Define the source file to encrypt
+            Dim outputFile As FileStream = New FileStream(outputFileName, FileMode.Create, FileAccess.Write) ' Create the file that will hold the encrypted data
+            Dim encrprocess As CryptoStream = New CryptoStream(outputFile, cryptotransform, CryptoStreamMode.Write) ' Define the encryption process that will write the encrypted data
+            Dim inputArray(sourceFile.Length - 1) As Byte ' Define the source file length as a Byte variable.
+            sourceFile.Read(inputArray, 0, inputArray.Length) ' Read the source files data
+            encrprocess.Write(inputArray, 0, inputArray.Length) ' Encrypt the data and write it to the cipher file.
+            encrprocess.Close()
+            sourceFile.Close() ' Close all file streams
+            outputFile.Close()
+            My.Computer.FileSystem.DeleteFile(fileToEncrypt) ' Delete the plain file.
+            Dim returnString As String = "File Encrypted!"
+            Return returnString ' Return "File Encrypted" to whatever called the function.
+
+        ElseIf choice = "decrypt" Then
+
+            Dim fileName As String = Path.GetFileName(fileToEncrypt) ' Get the file name
+            Dim outputFileName As String = Replace(fileName, ".aes", "") ' Remove the .aes file to indicated that it is a plain file.
+            Dim decryptor As New AesCryptoServiceProvider ' Define the decryptor as an AesCryptoServiceProvider
+            decryptor.Key = ASCIIEncoding.ASCII.GetBytes("dRgUkXp2s5v8y/B?E(G+KbPeShVmYq3t") ' Give the same key and initialization vector that was used to encrypt.
+            decryptor.IV = ASCIIEncoding.ASCII.GetBytes("D(G+KbPeSgVkYp3s") '                   ^^^^^^^^^^^^^^
+            Dim cryptotransform As ICryptoTransform = decryptor.CreateDecryptor(decryptor.Key, decryptor.IV) ' Create the decryptor with an ICryptoTransform variable
+            Dim sourceFile As FileStream = New FileStream(fileToEncrypt, FileMode.Open, FileAccess.Read) ' Define the source file to decrypt
+            Dim outputFile As FileStream = New FileStream(outputFileName, FileMode.Create, FileAccess.Write) ' Create the plain file
+            Dim encrprocess As CryptoStream = New CryptoStream(outputFile, cryptotransform, CryptoStreamMode.Write) ' Define the encryption process that will write the plain data
+            Dim inputArray(sourceFile.Length - 1) As Byte ' Define the source file length as a Byte variable
+            sourceFile.Read(inputArray, 0, inputArray.Length) ' Read the source files data
+            encrprocess.Write(inputArray, 0, inputArray.Length) ' Encrypt the data and write it to the cipher file
+            encrprocess.Close()
+            sourceFile.Close() ' Close all file streams
+            outputFile.Close()
+            My.Computer.FileSystem.DeleteFile(fileToEncrypt) ' Delete the encrypted file
+            Dim returnString As String = "File Decrypted!"
+            Return returnString ' Return "File Decrypted" to whatever called the function
+
+        Else
+
+            Dim returnString As String = "Invalid Options."
+            Return returnString ' Return "Invalid Options"
+
+        End If
+    End Function
+
 End Module
