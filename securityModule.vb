@@ -1,6 +1,9 @@
 Imports System.Security.Cryptography
 Imports System.Text
 Imports System.IO
+Imports SHA3
+
+
 Module securityModule
 
     Public Function MD5Hash(ByVal stringToHash As String)
@@ -25,7 +28,7 @@ Module securityModule
         End Using
     End Function
 
-    Public Function SHA256Hash(ByVal stringToHash As String)
+    Public Function SHA2_256Hash(ByVal stringToHash As String)
         Using hash As SHA256 = SHA256.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-256 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-256 Hash into a string.
@@ -36,7 +39,7 @@ Module securityModule
         End Using
     End Function
 
-    Public Function SHA384Hash(ByVal stringToHash As String)
+    Public Function SHA2_384Hash(ByVal stringToHash As String)
         Using hash As SHA384 = SHA384.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-384 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-384 Hash into a string.
@@ -47,7 +50,7 @@ Module securityModule
         End Using
     End Function
 
-    Public Function SHA512Hash(ByVal stringToHash As String)
+    Public Function SHA2_512Hash(ByVal stringToHash As String)
         Using hash As SHA512 = SHA512.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-512 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-512 Hash into a string.
@@ -56,6 +59,50 @@ Module securityModule
             Next
             Return stringBuilder.ToString() ' This function will return the String Builder as a string.
         End Using
+    End Function
+
+    Public Function SHA3_224_Hash(ByVal stringToHash As String)
+        Dim bytes As Byte() = Encoding.UTF8.GetBytes(stringToHash) ' Seperate each character of the string that we are hashing into a Byte array
+        Dim hasher As New SHA3.SHA3Managed(224) ' Define the SHA3Managed variable that will be computing our hash
+        Dim hashedString As Byte() = hasher.ComputeHash(bytes) ' Compute the hash and store it as a new Byte array
+        Dim stringBuilder As New StringBuilder ' Define a string builder so we can convert back to a string
+        For i As Integer = 0 To hashedString.Length - 1
+            stringBuilder.Append(hashedString(i).ToString("X2")) ' Append each character of the hash to the string builder
+        Next
+        Return stringBuilder.ToString ' Return the string builder converted to a string
+    End Function
+
+    Public Function SHA3_256_Hash(ByVal stringToHash As String)
+        Dim bytes As Byte() = Encoding.UTF8.GetBytes(stringToHash) ' Seperate each character of the string that we are hashing into a Byte array
+        Dim hasher As New SHA3.SHA3Managed(256) ' Define the SHA3Managed variable that will be computing our hash
+        Dim hashedString As Byte() = hasher.ComputeHash(bytes) ' Compute the hash and store it as a new Byte array
+        Dim stringBuilder As New StringBuilder ' Define a string builder so we can convert back to a string
+        For i As Integer = 0 To hashedString.Length - 1
+            stringBuilder.Append(hashedString(i).ToString("X2")) ' Append each character of the hash to the string builder
+        Next
+        Return stringBuilder.ToString ' Return the string builder converted to a string
+    End Function
+
+    Public Function SHA3_384_Hash(ByVal stringToHash As String)
+        Dim bytes As Byte() = Encoding.UTF8.GetBytes(stringToHash) ' Seperate each character of the string that we are hashing into a Byte array
+        Dim hasher As New SHA3.SHA3Managed(384) ' Define the SHA3Managed variable that will be computing our hash
+        Dim hashedString As Byte() = hasher.ComputeHash(bytes) ' Compute the hash and store it as a new Byte array
+        Dim stringBuilder As New StringBuilder ' Define a string builder so we can convert back to a string
+        For i As Integer = 0 To hashedString.Length - 1
+            stringBuilder.Append(hashedString(i).ToString("X2")) ' Append each character of the hash to the string builder
+        Next
+        Return stringBuilder.ToString ' Return the string builder converted to a string
+    End Function
+
+    Public Function SHA3_512_Hash(ByVal stringToHash As String)
+        Dim bytes As Byte() = Encoding.UTF8.GetBytes(stringToHash) ' Seperate each character of the string that we are hashing into a Byte array
+        Dim hasher As New SHA3.SHA3Managed(512) ' Define the SHA3Managed variable that will be computing our hash
+        Dim hashedString As Byte() = hasher.ComputeHash(bytes) ' Compute the hash and store it as a new Byte array
+        Dim stringBuilder As New StringBuilder ' Define a string builder so we can convert back to a string
+        For i As Integer = 0 To hashedString.Length - 1
+            stringBuilder.Append(hashedString(i).ToString("X2")) ' Append each character of the hash to the string builder
+        Next
+        Return stringBuilder.ToString ' Return the string builder converted to a string
     End Function
 
     Public Function TripleDES(ByVal fileToEncrypt As String, ByVal choice As String)
@@ -210,6 +257,7 @@ Module securityModule
             Return returnString ' Return "Invalid Options"
 
         End If
+
     End Function
 
 End Module
