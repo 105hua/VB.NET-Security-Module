@@ -6,7 +6,7 @@ Imports SHA3
 
 Module securityModule
 
-    Public Function MD5Hash(ByVal stringToHash As String)
+    Public Function MD5_Hash(ByVal stringToHash As String)
         Using hash As MD5 = MD5.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the MD5 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the MD5 Hash into a string.
@@ -17,7 +17,7 @@ Module securityModule
         End Using
     End Function
 
-    Public Function SHA1Hash(ByVal stringToHash As String)
+    Public Function SHA1_Hash(ByVal stringToHash As String)
         Using hash As SHA1 = SHA1.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-1 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-1 Hash into a string.
@@ -28,7 +28,7 @@ Module securityModule
         End Using
     End Function
 
-    Public Function SHA2_256Hash(ByVal stringToHash As String)
+    Public Function SHA2_256_Hash(ByVal stringToHash As String)
         Using hash As SHA256 = SHA256.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-256 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-256 Hash into a string.
@@ -39,7 +39,7 @@ Module securityModule
         End Using
     End Function
 
-    Public Function SHA2_384Hash(ByVal stringToHash As String)
+    Public Function SHA2_384_Hash(ByVal stringToHash As String)
         Using hash As SHA384 = SHA384.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-384 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-384 Hash into a string.
@@ -50,7 +50,7 @@ Module securityModule
         End Using
     End Function
 
-    Public Function SHA2_512Hash(ByVal stringToHash As String)
+    Public Function SHA2_512_Hash(ByVal stringToHash As String)
         Using hash As SHA512 = SHA512.Create() ' Create the hashing object for use in computing the hash.
             Dim stringtohashBytes As Byte() = hash.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)) ' Compute the SHA-512 Hash as Bytes.
             Dim stringBuilder As New StringBuilder ' Define a new String Builder to convert the SHA-512 Hash into a string.
