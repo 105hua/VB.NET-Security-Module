@@ -10,13 +10,5 @@ Welcome to the GitHub page for my Security Module for VB.NET. The intention of t
 - Triple DES Encryption - Done & Documented
 - DES Encryption - Done & Documented
 - AES Encryption (128, 256, 512) - Done
-- Blowfish Encryption - Planned
-- Serpent Encryption - On Hold
 
-
-
-Other features may be added as I develop this Module further.
-
-NOTE: As of 23rd August 2020, I will no longer include RSA Encryption in this module until the function has been improved.
-
-NOTE 2: As of 27th August 2020, I am putting the Serpent Encryption Function on hold due to the difficulty of Serpent Encryption in VB.NET
+I've currently done all I can as far as cryptography goes with VB.NET, if something gets updated then I will update this module accordingly.
